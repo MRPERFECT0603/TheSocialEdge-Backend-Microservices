@@ -47,8 +47,8 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     console.log(req.body);
 
-    let result = await User.find({ username: req.body.username }).count();
-    if (result == 0) {
+    let result = await User.find({ username: req.body.username });
+    if (!result) {
         res.status(500).json("User Doesn't Exist!");
     }
     else{
@@ -65,6 +65,7 @@ const login = async (req, res) => {
 
 
    const UserCredentials = {
+        id: result.id,
         username: result.username,
         email: result.email,
         name: result.name

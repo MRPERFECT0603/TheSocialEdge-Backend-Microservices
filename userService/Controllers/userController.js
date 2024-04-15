@@ -1,46 +1,55 @@
-
-const db = require("../Config/dbConfig");
+const db = require("../Config/connectiondb");
 const jwt = require("jsonwebtoken");
+const User = require("../Model/model");
 
-const getUser = (req, res) => {
-    const userId = req.params.userId;
 
-    const q = "SELECT * FROM users WHERE id = ?"
+const getUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
 
-    db.query(q, [userId], (err, data) => {
-        if (err) return res.status(500).json(err);
-        const { password, ...info } = data[0];
-        return res.json(info);
-    })
+        if (!user) {
+            res.status(404).json({ error: "User not found" });
+            return;
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+
 }
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
     const token = req.cookies.accessToken;
-    if (!token)
-        return res.status(401).json("Not Logged In!!!");
+    console.log(token);
+    if (!token) return res.status(401).json("Not Logged In!!!");
 
-    jwt.verify(token, "secretKey", (err, UserInfo) => {
-        if (err) return res.status(403).json("Token is not valid!!!");
-        const q = "UPDATE users SET `name`=?,`city`=?,`website`=?,`profilePic`=?,`coverPic`=? WHERE id=? "
+    try {
+        // Verify the token and get userId
+        const decoded = await jwt.verify(token, process.env.JWT_SECURITY);
+        console.log(decoded);
+        const userId = decoded.id;
+        console.log(userId);
+        // Proceed with updating the user
 
-
-        db.query(
-            q,
-            [
-                req.body.name,
-                req.body.city,
-                req.body.website,
-                req.body.profilePic,
-                req.body.coverPic,
-                UserInfo.id,
-            ],
-            (err, data) => {
-                if (err) res.status(500).json(err);
-                if (data.affectedRows > 0) return res.json("Updated!");
-                return res.status(403).json("You can update only your post!");
-            }
+        const userData = req.body;
+        console.log(userData);
+        const updatedUser = await User.findByIdAndUpdate( userId,
+            { $set: userData }, // Use $set to update existing fields and add new ones
+            { new: true, upsert: true }
         );
+        if (!updatedUser) {
+            res.status(404).json({ error: "User not found" });
+            return;
+        }
+        res.json(updatedUser);
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
 
-    })
-}
+
 module.exports = { getUser, updateUser };
