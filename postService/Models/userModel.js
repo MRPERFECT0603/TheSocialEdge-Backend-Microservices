@@ -33,6 +33,10 @@ const UserSchema = mongoose.Schema({
         type: String,
     },
 
+    following: {
+        type: Array,
+    }
+
 },
     {
         timestamps: true,

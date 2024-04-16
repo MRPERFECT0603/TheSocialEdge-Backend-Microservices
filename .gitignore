@@ -10,6 +10,13 @@ userService/node_modules/
 # Ignore .env files in userService
 userService/*.env
 
+
+
+postService/node_modules/
+
+# Ignore .env files in userService
+postService/*.env
+
 # dependencies
 /node_modules
 /.pnp

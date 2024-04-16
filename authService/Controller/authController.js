@@ -1,7 +1,7 @@
 const db = require("../Config/connectiondb");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../Model/model");
+const User = require("../Model/userModel");
 
 
 const register = async (req, res) => {
@@ -12,7 +12,7 @@ const register = async (req, res) => {
     const Username = await User.find({ username: username }).count();
     if (Username > 0) {
         res.status(500).json("Username Exists, Please Choose Another Username!");
-        return ;
+        return;
     }
     //Email
     const Email = await User.find({ email: email }).count();

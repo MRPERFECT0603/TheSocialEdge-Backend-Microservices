@@ -1,6 +1,6 @@
 const db = require("../Config/connectiondb");
 const jwt = require("jsonwebtoken");
-const User = require("../Model/model");
+const User = require("../Model/userModel");
 
 
 const getUser = async (req, res) => {
