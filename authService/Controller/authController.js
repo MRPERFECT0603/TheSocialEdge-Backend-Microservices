@@ -12,11 +12,13 @@ const register = async (req, res) => {
     const Username = await User.find({ username: username }).count();
     if (Username > 0) {
         res.status(500).json("Username Exists, Please Choose Another Username!");
+        return ;
     }
     //Email
     const Email = await User.find({ email: email }).count();
     if (Email > 0) {
         res.status(500).json("Email Exists, Please Choose Another Email!");
+        return;
     }
     //If Everything looks good add the data in the database 
     else {
@@ -28,7 +30,12 @@ const register = async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
-            name: req.body.name
+            name: req.body.name,
+            coverPic: "",
+            profilePic: "",
+            city: "",
+            website: "",
+            following: ""
         }
         try {
             const createUser = await User.create(Data);
@@ -51,9 +58,9 @@ const login = async (req, res) => {
     if (!result) {
         res.status(500).json("User Doesn't Exist!");
     }
-    else{
+    else {
         result = await User.findOne({ username: req.body.username })
-    }   
+    }
     console.log(result);
     const checkPassword = bcrypt.compareSync(req.body.password, result.password);
 
@@ -64,12 +71,12 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: result.id }, process.env.JWT_SECURITY);
 
 
-   const UserCredentials = {
+    const UserCredentials = {
         id: result.id,
         username: result.username,
         email: result.email,
         name: result.name
-   }
+    }
 
     res.cookie("accessToken", token, {
         httpOnly: true,
