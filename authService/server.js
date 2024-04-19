@@ -13,5 +13,5 @@ app.use(express.urlencoded({ extends: true }));
 app.use("/api/auth", require("./Routes/auth"));
 app.use(express.json());
 app.listen(PORT, (req, res) => {
-    console.log(`The server has been started on ${PORT}`);
+    console.log(`The AuthService has been started on ${PORT}`);
 });
