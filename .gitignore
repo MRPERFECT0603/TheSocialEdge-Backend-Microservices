@@ -1,31 +1,27 @@
-# Ignore node_modules directory in authService
 authService/node_modules/
-
-# Ignore .env files in authService
 authService/*.env
 
-# Ignore node_modules directory in userService
 userService/node_modules/
-
-# Ignore .env files in userService
 userService/*.env
 
 likeService/node_modules/
-
-# Ignore .env files in userService
 likeService/*.env
 
 
 postService/node_modules/
-
-# Ignore .env files in userService
 postService/*.env
 
 
 likeService/node_modules/
-
-# Ignore .env files in userService
 likeService/*.env
+
+
+commentService/node_modules/
+commentService/*.env
+
+notificationService/node_modules/
+notificationService/*.env
+
 # dependencies
 /node_modules
 /.pnp
