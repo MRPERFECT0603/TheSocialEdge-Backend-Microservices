@@ -11,9 +11,11 @@ connectdb();
 app.use(express.json());
 app.use(express.urlencoded({ extends: true }));
 app.use(cookieParser());
-
+app.get("/", (req, res) => {
+    res.json("The NootificationService is up and running.");
+});
 app.use("/api/notification", require("./Routes/notification"));
 app.use(express.json());
 app.listen(PORT, (req, res) => {
-    console.log(`The server has been started on ${PORT}`);
+    console.log(`The NotificationService has been started on ${PORT}`);
 });

@@ -9,7 +9,9 @@ const connectdb = require('./Config/connectiondb');
 connectdb();
 app.use(express.json());
 app.use(express.urlencoded({ extends: true }));
-
+app.get("/", (req, res) => {
+    res.json("The AuthService is up and running.");
+});
 app.use("/api/auth", require("./Routes/auth"));
 app.use(express.json());
 app.listen(PORT, (req, res) => {
