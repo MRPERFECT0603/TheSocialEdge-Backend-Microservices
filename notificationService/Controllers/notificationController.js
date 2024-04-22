@@ -6,7 +6,8 @@ const Post = require("../Models/postModel");
 const User = require("../Models/userModel");
 
 
-async function Mail(email) {
+
+async function Mail(email, name) {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -14,12 +15,12 @@ async function Mail(email) {
             pass: 'vddu hzlv xiaf ksbv',
         }
     });
-    console.log(email);
+    console.log(email, name);
     const mailOptions = {
         from: 'vivekshaurya77@gmail.com',
         to: [email],
-        subject: 'Dribble Login confirmation',
-        text: 'Thank You for loging in!',
+        subject: 'SomeOne Liked your Post',
+        text: `${name} liked your post`,
     };
 
     // Send the email
@@ -35,8 +36,8 @@ async function Mail(email) {
 
 const sendNotification = (req, res) => {
     console.log("body" + req.body);
-    const { email } = req.body;
-    Mail(email);
+    const { email, name } = req.body;
+    Mail(email, name);
     res.status(200).json("Confirmation Mail Sent!!");
 }
 
