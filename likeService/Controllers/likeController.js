@@ -54,10 +54,10 @@ const addLike = async (req, res) => {
             res.status(404).json({ error: "Post not Available!!" });
             return;
         }
-        // if (post.like.includes(userId)) {
-        //     res.json("Already Liked the post!!");
-        //     return;
-        // }
+        if (post.like.includes(userId)) {
+            res.json("Already Liked the post!!");
+            return;
+        }
         post.like.push(userId);
         await post.save();
         const postOwner = await User.findOne({ _id: post.userId });
