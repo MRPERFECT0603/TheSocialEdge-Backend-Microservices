@@ -17,7 +17,7 @@ async function kafkaMessage() {
             //     value: message.value.toString(),
             // })
             try {
-                await axios.post("http://localhost:30005/api/notification", {
+                await axios.post("http://localhost:8005/api/notification", {
                     email: Email,
                     name: name
                 });
