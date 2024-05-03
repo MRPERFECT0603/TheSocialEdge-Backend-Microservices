@@ -8,6 +8,10 @@ const connectdb = require('./Config/connectiondb');
 
 //middleware
 connectdb();
+app.use(cors({
+    origin: ["http://localhost:30006"],
+    credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extends: true }));
 app.use(cookieParser());
