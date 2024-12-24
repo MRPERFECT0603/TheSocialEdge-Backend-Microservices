@@ -11,6 +11,8 @@ Welcome to the **TheSocialEdge Backend** repository! This project powers the ser
 - **Container Orchestration**: Kubernetes for auto-scaling, auto-healing, and efficient deployment.
 - **RESTful APIs**: API endpoints for managing users, posts, comments, likes, and notifications.
 
+![Orchestration](orchestartion.jpeg)
+
 ## Table of Contents
 1. [Getting Started](#getting-started)
 2. [Technologies Used](#technologies-used)
