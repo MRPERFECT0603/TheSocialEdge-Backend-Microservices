@@ -68,8 +68,3 @@ The backend is designed with a modular microservices architecture. Each service 
 1. Ensure Docker and Kubernetes are installed and running.
 2. Start the Kafka cluster for message brokering.
 3. Deploy services using Kubernetes manifests.
-
-To start all services with Docker Compose:
-```bash
-docker-compose up
-```
